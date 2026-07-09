@@ -14,6 +14,7 @@ import downloadRoutes from '../routes/downloads.js'
 import historyRoutes from '../routes/history.js'
 import settingsRoutes from '../routes/settings.js'
 import { ensureDirectories } from '../utils/fs.js'
+import { apiDocs } from './api-docs.js'
 
 dotenv.config()
 
@@ -49,13 +50,17 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flux-tube-api' })
 })
 
+app.get('/api/docs', (_req, res) => {
+  res.json({ success: true, data: apiDocs })
+})
+
 app.use('/api/metadata', metadataRoutes)
 app.use('/api/downloads', downloadRoutes)
 app.use('/api/history', historyRoutes)
 app.use('/api/settings', settingsRoutes)
 
 app.use(express.static(path.join(__dirname, '..', 'dist')))
-app.get('*', (_req, res) => {
+app.get(/^(?!\/api).*/, (_req, res) => {
   res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
 })
 

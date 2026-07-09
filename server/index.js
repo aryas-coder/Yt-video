@@ -1,4 +1,5 @@
 import http from 'http'
+import dotenv from 'dotenv'
 import app from './app.js'
 import { logger } from '../utils/logger.js'
 
