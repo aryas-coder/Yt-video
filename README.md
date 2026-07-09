@@ -1,16 +1,45 @@
-# React + Vite
+# FluxTube Backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Overview
+This project now includes a production-ready Node.js + Express backend that preserves the existing frontend UI while adding secure API endpoints for metadata lookup, downloads, history, and settings.
 
-Currently, two official plugins are available:
+## Scripts
+- `npm run dev` — start the Vite frontend
+- `npm run dev:server` — start the backend server
+- `npm run build` — build the frontend for production
+- `npm run start` — start the backend in production mode
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Environment
+Copy `.env.example` to `.env` and adjust values as needed.
 
-## React Compiler
+## API Endpoints
+### Metadata
+- `POST /api/metadata`
+  - Body: `{ "url": "https://www.youtube.com/watch?v=..." }`
+  - Response: metadata including title, thumbnail, channel, duration, qualities, formats, and estimated size.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Downloads
+- `POST /api/downloads/start`
+  - Body: `{ "url": "https://www.youtube.com/watch?v=...", "format": "MP4", "quality": "1080p", "audioQuality": "128kbps" }`
+- `GET /api/downloads/queue`
+- `POST /api/downloads/cancel/:id`
+- `POST /api/downloads/retry/:id`
+- `POST /api/downloads/cleanup`
 
-## Expanding the Oxlint configuration
+### History
+- `GET /api/history`
+- `POST /api/history`
+- `DELETE /api/history/:id`
+- `DELETE /api/history/clear/all`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Settings
+- `GET /api/settings`
+- `PUT /api/settings`
+
+### Health
+- `GET /health`
+
+## Production Notes
+- CORS, Helmet, compression, rate limiting, and request sanitization are enabled.
+- Logs are written to the `logs` directory.
+- Downloads and temporary files are stored under the `downloads` and `temp` folders.
