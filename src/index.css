@@ -1,0 +1,115 @@
+/* Global design tokens, layout and component-level styles.
+   - Mobile-first
+   - CSS variables for light/dark themes
+   - Focus indicators and accessibility enhancements
+*/
+:root{
+  --bg: #0f1724;
+  --card: rgba(255,255,255,0.04);
+  --muted: rgba(255,255,255,0.6);
+  --glass: rgba(255,255,255,0.06);
+  --accent: linear-gradient(135deg,#ff4d6d 0%, #7c4dff 100%);
+  --radius: 14px;
+  --shadow: 0 6px 30px rgba(2,6,23,0.6);
+  --text: #e6eef8;
+  --glass-border: rgba(255,255,255,0.06);
+  --success: #22c55e;
+  --danger: #ff6b6b;
+}
+
+.app-root{
+  min-height:100vh;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,77,255,0.12), transparent),
+              radial-gradient(800px 500px at 90% 90%, rgba(255,77,109,0.08), transparent),
+              var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+}
+
+/* Theme handling - light theme overrides */
+.app-root[data-theme='light']{
+  --bg: #f6f8fb;
+  --card: rgba(16,24,40,0.02);
+  --muted: rgba(15,23,42,0.6);
+  --glass: rgba(255,255,255,0.7);
+  --accent: linear-gradient(135deg,#7c4dff 0%, #00c2ff 100%);
+  --shadow: 0 6px 30px rgba(2,6,23,0.06);
+  --text: #0b1724;
+  --glass-border: rgba(11,23,36,0.05);
+}
+
+/* Layout */
+.main-content{
+  flex:1 0 auto;
+  padding:20px;
+  width:100%;
+  max-width:1200px;
+  margin: 24px auto;
+}
+
+.container{
+  width:100%;
+  margin:0 auto;
+}
+
+/* Cards */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+  border: 1px solid var(--glass-border);
+}
+
+.header-backdrop{
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* Typography */
+.h1{font-size:1.5rem;font-weight:700;margin:0}
+.h2{font-size:1.125rem;font-weight:600;margin:0}
+.p-muted{color:var(--muted);font-size:0.95rem}
+.small{font-size:0.875rem}
+
+/* Buttons */
+.btn{
+  border:0;cursor:pointer;border-radius:10px;padding:10px 14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn:focus{outline:3px solid rgba(124,77,255,0.16);outline-offset:2px}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:var(--accent);color:white;padding:10px 16px;box-shadow:0 8px 30px rgba(124,77,255,0.12)}
+.btn-ghost{background:transparent;border:1px solid var(--glass-border);color:var(--text)}
+
+/* Navbar */
+.navbar{position:sticky;top:12px;z-index:40;background:transparent;padding:10px 16px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--accent);box-shadow:0 8px 20px rgba(124,77,255,0.12);font-weight:700}
+.navlinks{display:flex;gap:10px;align-items:center}
+
+/* Responsive */
+@media(min-width:900px){
+  .h1{font-size:2rem}
+}
+
+/* Utility */
+.row{display:flex;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+
+/* Forms */
+.input{background:var(--glass);border:1px solid var(--glass-border);padding:12px;border-radius:10px;color:var(--text);width:100%;}
+.input:focus{box-shadow:0 6px 30px rgba(124,77,255,0.08);outline:none}
+
+/* Download / card styles */
+.thumbnail-placeholder{width:160px;height:90px;border-radius:8px;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+.progress-bar{height:10px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden}
+.progress-bar > i{display:block;height:100%;background:var(--accent);width:0%;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+
+/* Footer */
+.footer{margin:32px auto;padding:18px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+
+/* Focus visible for keyboard navigation */
+:focus{outline-color:transparent}
+:focus-visible{outline:3px solid rgba(124,77,255,0.16);outline-offset:2px}
